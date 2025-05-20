@@ -1,0 +1,863 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* Containers principais */
+.background-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    height: 100vh;
+    flex-wrap: wrap;
+}
+
+.background-container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    height: 100vh;
+    flex-wrap: wrap;
+}
+
+.containerr {
+    background-color: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.container,
+.container2 {
+    background-color: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.container {
+    width: 300px;
+}
+
+.container2 {
+    width: 400px;
+}
+
+.logo img {
+    max-width: 200px;
+    margin-bottom: -1px;
+}
+
+.container h1 {
+    margin-top: 20px;
+    color: #024a7a;
+}
+
+/* Inputs e botões */
+input,
+select {
+    padding: 10px;
+    margin: 5px;
+    width: 90%;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #024a7a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #03609c;
+}
+
+/* Botão do topo (Admin) */
+.btn-adm-topo {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #024a7a;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Calendário */
+#calendario-container {
+    margin-top: 20px;
+}
+
+#mes-atual {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #024a7a;
+}
+
+.dias-semana,
+.calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.dias-semana {
+    font-weight: bold;
+    color: #024a7a;
+}
+
+.calendario {
+    gap: 5px;
+}
+
+.calendario div {
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 6px;
+}
+
+.calendario div.ativo {
+    background-color: yellow;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.calendario div.ativo.selecionado {
+    background-color: #024a7a; /* azul */
+    color: white;
+}
+
+.calendario div.ativo:hover {
+    background-color: #ffe600;
+}
+
+/* Pop-ups */
+.login-popup,
+.popup-overlay,
+.popup {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup.show,
+.login-popup.show {
+    display: none;
+}
+
+.login-box,
+.popup-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 300px;
+    z-index: 9999;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-box input,
+.popup-box input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+}
+
+.login-box button,
+.popup-box button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #024a7a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-box button:hover,
+.popup-box button:hover {
+    background-color: #03609c;
+}
+
+.popup-box button:nth-child(2) {
+    background-color: #dc3545;
+}
+
+.popup-box button:nth-child(2):hover {
+    background-color: #c82333;
+}
+
+/* Editar agendamento */
+.editar-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.editar-box {
+    background-color: white;
+    padding: 25px;
+    border-radius: 16px;
+    width: 350px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.editar-box input {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+}
+
+/* Agendamento item */
+.agendamento-item {
+    background-color: #e9f5ff;
+    border: 1px solid #cce5ff;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 10px 0;
+    text-align: left;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.agendamento-item p {
+    margin: 5px 0;
+}
+
+.agendamento-item button {
+    font-family: 'Montserrat', sans-serif;
+    margin-right: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: #024a7a;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.agendamento-item button:hover {
+    background-color: #03609c;
+}
+
+/* Mensagem e alerta */
+.mensagem-oculta {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mensagem-visivel {
+    display: block;
+}
+
+.alerta {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.alerta.sucesso {
+    background-color: #4caf50;
+}
+
+.alerta.erro {
+    background-color: #f44336;
+}
+
+.alerta.info {
+    background-color: #2196f3;
+}
+
+/* Layouts */
+.layout-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.lado-esquerdo {
+    flex: 1;
+    background: linear-gradient(135deg, #024a7a, #03609c);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.lado-esquerdo .logo img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.lado-esquerdo h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.lado-esquerdo p {
+    font-size: 18px;
+}
+
+.lado-direito {
+    flex: 1;
+    background-color: #f5f7fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* Formulários */
+.form-container,
+.caixa-formulario {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-container input,
+.form-container select,
+.caixa-formulario input,
+.caixa-formulario select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.form-container button,
+.caixa-formulario button {
+    width: 100%;
+    padding: 14px;
+    background-color: #024a7a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.form-container button:hover,
+.caixa-formulario button:hover {
+    background-color: #03609c;
+}
+
+/* Info box */
+.caixa-info {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.caixa-info .logo img {
+    max-width: 100px;
+    margin-bottom: 15px;
+}
+
+.caixa-info h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    color: #024a7a;
+}
+
+.caixa-info p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Fundo escuro de login admin */
+#adminLoginBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+/* Container de login admin */
+#loginContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 999;
+}
+
+#loginContainer input[type="text"],
+#loginContainer input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#loginContainer button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 50px;
+    background-color: #004080;
+    color: white;
+    cursor: pointer;
+}
+
+#loginContainer button:hover {
+    background-color: #0066cc;
+}
+
+/* Área de edição destacada */
+.area-edicao {
+    background-color: #fdf0d5;
+    padding: 20px;
+    border: 2px dashed #ffa500;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+/* Modo admin edição */
+.admin-edicao-ativa {
+    background: linear-gradient(to right, #ece9e6, #ffffff);
+    transition: background 0.5s ease-in-out;
+}
+
+.painel-agendamentos {
+    display: flex;
+    justify-content: space-between; /* Distribui os elementos uniformemente */
+    gap: 20px; /* Espaçamento entre os quadros */
+    flex-wrap: nowrap; /* Impede que os elementos quebrem para a próxima linha */
+    align-items: flex-start; /* Garante um alinhamento adequado */
+}
+
+.box-agendamentos {
+    width: 50%; /* Define um tamanho fixo para cada bloco */
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 350px; /* Evita que fiquem muito pequenos */
+}
+
+.box-agendamentos h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #002b5b;
+}
+
+.botao-container {
+    display: flex;
+    justify-content: center; /* Centraliza o botão */
+    width: 100%;
+    margin-top: 30px; /* Adiciona um espaço entre o painel e o botão */
+    flex-basis: 100%; /* Faz com que ocupe toda a largura disponível */
+}
+
+#botao-apagar {
+    padding: 12px 20px;
+    background-color: #dc3545;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#botao-apagar:hover {
+    background-color: #c82333;
+}
+
+#botao-apagar-todos {
+    padding: 12px 20px;
+    background-color: #dc3545;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#botao-apagar-todos:hover {
+    background-color: #c82333;
+}
+
+.relatorio-container {
+    & h2 {
+        color: #000000;
+    }
+}
+
+.logo {
+    & h2 {
+        color: #002b5b;
+    }
+}
+
+.relatorio-container {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.popup-box {
+    text-align: center;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 15px 12px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+body {
+    background-image: url("./Massagem.jpg");
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Deixa o fundo levemente escurecido */
+    z-index: -1;
+}
+
+.desativado {
+    background-color: #ddd;
+    color: #888;
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#calendarioTerceiros-container {
+    width: 100%;
+    max-width: 1100px; /* Aumentado horizontalmente */
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+#calendarioTerceiros {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.dia-calendario {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.dia-vazio {
+    background-color: transparent;
+}
+
+.desativado {
+    background-color: #ddd;
+    color: #888;
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.destacado {
+    background-color: yellow; /* Dias futuros ficam amarelos */
+}
+
+.clicavel {
+    background-color: #ffcc00; /* Quartas e sextas ficam destacadas */
+    cursor: pointer;
+}
+
+.clicavel:hover {
+    background-color: #ff9900;
+}
+
+#botao-liberar-agendamento {
+    position: fixed;
+    top: 20px;
+    right: 20px; /* <-- era 130px, agora vai grudar mais no canto */
+    background-color: #024a7a;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+
+#botao-liberar-agendamento:hover {
+    background-color: #03609c;
+}
+
+#botao-liberar-agendamento {
+    position: fixed;
+    top: 20px;
+    right: 130px;
+    background-color: #024a7a;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-box {
+    background: white;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    text-align: center;
+}
+
+.calendario div.desativado {
+    background-color: #ccc !important;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.feriado {
+    background-color: #ff4d4d !important; /* vermelho forte */
+    color: white !important;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.hoje {
+    background-color: #999 !important; /* cinza mais escuro */
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.legenda-calendario {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.legenda-calendario span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bolinha {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.bolinha.amarelo {
+    background-color: yellow;
+    border: 1px solid #aaa;
+}
+
+.bolinha.vermelho {
+    background-color: red;
+}
+
+.bolinha.cinza {
+    background-color: #ccc;
+}
+
+.bolinha.hoje {
+    background-color: #666;
+}
+
+.grade-horarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.botao-horario {
+    background-color: #024a7a;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.botao-horario:hover {
+    background-color: #03609c;
+}
+
+.botao-horario.selecionado {
+    background-color: #4da6ff;
+}
+
+.botao-horario.ocupado {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.contador-tempo {
+    font-size: 13px;
+    color: red;
+    font-weight: bold;
+    margin-top: 4px;
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}

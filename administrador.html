@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Administrador - Massagens</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div class="background-container2">
+        <div class="containerr">
+            <div class="logo">
+                <img src="./Logo2.png" alt="Logo da empresa" />
+                <h2>Painel do Administrador</h2>
+            </div>
+
+
+
+            <div class="relatorio-container">
+                <h2>Gerar Relatório do Mês</h2>
+
+                <label for="anoRelatorio">Selecione o ano:</label>
+                <select id="anoRelatorio">
+                    <option value="2025" selected>2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2026">2027</option>
+                    <option value="2026">2028</option>
+                    <option value="2026">2029</option>
+                    <option value="2026">2030</option>
+                </select>
+
+                <label for="mesRelatorio">Selecione o mês:</label>
+                <select id="mesRelatorio">
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Março</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+
+                <button onclick="exportarRelatorioExcel()">Gerar Relatório</button>
+
+                <h2>Gerar Relatório do Dia</h2>
+
+                <label for="dataRelatorioDia">Selecione o dia:</label>
+                <input type="date" id="dataRelatorioDia" />
+
+                <button onclick="gerarRelatorioDia()">Gerar Relatório do Dia</button>
+
+            </div>
+
+            <p></p>
+
+            <!-- NOVO PAINEL COM DOIS QUADROS -->
+            <div class="painel-agendamentos">
+                <div class="box-agendamentos">
+                    <h2>Agendamentos Ativos</h2>
+                    <div id="lista-agendamentos">
+                        <!-- Agendamentos ativos aparecerão aqui -->
+                    </div>
+
+                    <!-- Botão posicionado corretamente abaixo -->
+                    <div class="botao-container">
+                        <button id="botao-apagar" onclick="apagarAgendamentosAtivos()">Apagar Agendamentos
+                            Ativos</button>
+                    </div>
+
+                </div>
+
+                <div class="box-agendamentos">
+                    <h2>Agendamentos Cancelados</h2>
+                    <div id="lista-cancelados">
+                        <!-- Agendamentos cancelados aparecerão aqui -->
+                    </div>
+
+                    <div class="botao-container">
+                        <button id="botao-apagar-todos" onclick="apagarTodosAgendamentos()">Apagar Todos os
+                            Agendamentos</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- POPUP DE EDIÇÃO -->
+    <div id="editarPopup" class="editar-popup" style="display: none;">
+        <div class="editar-box">
+            <h3>Editar Agendamento</h3>
+            <input type="text" id="editarNome" placeholder="Nome" />
+            <input type="email" id="editarEmail" placeholder="Email" />
+            <input type="text" id="editarData" placeholder="Data (DD/MM/AAAA)" />
+            <input type="text" id="editarHorario" placeholder="Horário" />
+            <button onclick="salvarEdicao()">Salvar</button>
+            <button onclick="fecharEdicao()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- POPUP DE CONFIRMAÇÃO DE CANCELAMENTO -->
+    <div id="popupConfirmacaoCancelamento" class="popup-overlay" style="display: none;">
+        <div class="popup-box">
+            <h3>Você tem certeza que deseja cancelar?</h3>
+            <button onclick="confirmarCancelamento()">Sim</button>
+            <button onclick="fecharPopupCancelamento()">Não</button>
+        </div>
+    </div>
+
+    <script>
+        setInterval(() => {
+            window.location.reload();
+        }, 60000); // 60000 milissegundos = 60 segundos
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

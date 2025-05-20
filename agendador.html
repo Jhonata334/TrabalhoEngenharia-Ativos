@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="130">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Agendamento de Massagem</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <button class="btn-adm-topo" onclick="abrirLogin()">Administrador</button>
+
+    <div class="background-container">
+        <div class="container">
+            <div class="logo">
+                <img src="./Logo2.png" alt="Logo">
+            </div>
+            <h1>Painel de Agendamento</h1>
+
+            <p><b>Prezado colaborador, por gentileza, agende seu horário e fique atento à data marcada!</b></p>
+            <p><b>Local:</b> Sala de Reunião 03</p>
+
+            <button id="botao-consulta" onclick="abrirPopupConsulta()">Consultar Agendamento</button>
+
+            <div class="legenda-calendario">
+                <span><span class="bolinha amarelo"></span> Dias de Massagem</span>
+                <span><span class="bolinha vermelho"></span> Feriados</span>
+                <span><span class="bolinha cinza"></span> Dias passados</span>
+                <span><span class="bolinha hoje"></span> Hoje</span>
+            </div>
+        </div>
+
+        <div class="container2">
+            <input type="text" id="nome" placeholder="Seu nome">
+            <input type="email" id="email" placeholder="Seu e-mail">
+
+            <div id="calendario-container">
+                <h3 id="mes-atual"></h3>
+                <div class="dias-semana">
+                    <div>Dom</div>
+                    <div>Seg</div>
+                    <div>Ter</div>
+                    <div>Qua</div>
+                    <div>Qui</div>
+                    <div>Sex</div>
+                    <div>Sáb</div>
+                </div>
+                <div id="calendario" class="calendario"></div>
+            </div>
+
+            <p></p>
+
+            <div id="grade-horarios" class="grade-horarios"></div>
+            <input type="hidden" id="horarioSelecionado">
+            <button onclick="agendar()">Agendar</button>
+        </div>
+    </div>
+
+    <!-- Popup de Confirmação -->
+    <div id="popupConfirmacao" class="popup-overlay" style="display: none;">
+        <div class="popup-box">
+            <h3>Confirmar Agendamento</h3>
+            <p id="textoConfirmacao"></p>
+            <button onclick="confirmarAgendamento()">Confirmar</button>
+            <button onclick="fecharPopup()">Cancelar</button> 
+        </div>
+    </div>
+
+    <!-- Login ADM -->
+    <div id="popupLogin" class="popup">
+        <div class="login-box">
+            <h2>Login do Administrador</h2>
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" placeholder="Digite seu usuário" />
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" placeholder="Digite sua senha" />
+            <button onclick="entrarComoAdmin()" id="botao-login">Entrar</button>
+            <button onclick="cancelarLogin()">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="popupConsultaAgendamento" class="popup-overlay" style="display: none;">
+        <div class="popup-box">
+            <h2>Consultar Agendamento</h2>
+
+            <div class="input-group">
+                <label for="consultaNome">Nome:</label>
+                <input type="text" id="consultaNome" placeholder="Digite seu nome">
+            </div>
+
+            <div class="input-group">
+                <label for="consultaEmail">E-mail:</label>
+                <input type="email" id="consultaEmail" placeholder="Digite seu e-mail">
+            </div>
+
+            <div class="button-container">
+                <button onclick="consultarAgendamento()">Consultar</button>
+                <button onclick="fecharConsulta()">Fechar</button>
+            </div>
+
+            <div id="resultadoConsulta" class="resultado-consulta" style="display: none;"></div>
+
+            <div class="button-container" id="botaoComprovanteContainer" style="display: none;">
+                <button onclick="gerarComprovante()">Gerar Comprovante</button>
+            </div>
+        </div>    
+    </div>
+
+    <div id="mensagem-confirmacao" class="mensagem-oculta"></div>
+    <div id="alerta-personalizado" class="alerta"></div> 
+
+    <!-- Popup do Código de Verificação -->
+    <div id="popupCodigo" class="popup-overlay" style="display: none;">
+        <div class="popup-box">
+            <h3>Verificação de Código</h3>
+            <p>Enviamos um código para seu e-mail. Insira abaixo:</p>           
+            <input type="text" id="codigoConfirmacao" placeholder="Código de 6 dígitos" />
+            <div id="contador-tempo" style="display: none; color: red; font-weight: bold; margin-top: 10px;">
+                Tempo restantepara confirmação: <span id="tempo-restante">120</span>s
+            </div> 
+            <button onclick="verificarCodigoDigitado()">Confirmar Código</button>
+            <button onclick="reenviarCodigo()"
+                style="margin-top: 10px; background-color: #f08c00; border: none; color: white; padding: 10px 20px; border-radius: 5px;">Reenviar
+                Código</button>
+            <button onclick="fecharPopupCodigo()">Cancelar</button>
+        </div>
+    </div>
+
+    <div id="spinner" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        z-index: 9999; background: rgba(255, 255, 255, 0.8); padding: 30px; border-radius: 10px; text-align: center;">
+        <p>Enviando...</p>
+    </div>    
+
+    <footer style="
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    padding: 6px 15px;
+    margin: 30px auto 0;
+    font-size: 12px;
+    border-top: 2px solid #ffffff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    width: 100%;">
+        <p style="margin: 2px 0;">
+            Desenvolvido com ❤️ pela equipe <strong style="color: #00d1b2;">GESAT</strong><br>
+            Responsáveis: <strong style="color: #00d1b2;">Neto</strong> e
+            <strong style="color: #00d1b2;">Jhonata</strong><br>
+            <em style="color: #ccc;">“Aqui não tem gambiarra, tem qualidade.”</em><br>
+            <small style="color: #a7a7a7;">&copy; 2025 Ativos S.A. | Todos os direitos reservados.</small>
+        </p>
+    </footer>
+
+    <script>
+        setInterval(() => {
+            window.location.reload();
+        }, 130000); // 130.000 milissegundos = 130 segundos
+    </script>    
+
+    <script src="script.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
